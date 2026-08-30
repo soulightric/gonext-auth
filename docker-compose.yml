@@ -1,0 +1,57 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - internal
+    # Port DB sengaja TIDAK di-expose ke host/publik — cukup diakses via network internal Docker
+
+  backend:
+    build:
+      context: ./fiber-auth-backend
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_HOURS: 72
+      ALLOWED_ORIGIN: ${PUBLIC_APP_URL}
+    depends_on:
+      - db
+    networks:
+      - internal
+    # Expose ke Nginx lewat port internal Docker, bukan langsung ke publik.
+    # Nginx di host yang nanti proxy_pass ke sini.
+    ports:
+      - "127.0.0.1:4001:3000"
+
+  frontend:
+    build:
+      context: ./nextjs-auth-frontend
+      args:
+        # Karena diakses lewat Nginx dengan domain publik, arahkan ke path /api di domain yang sama
+        NEXT_PUBLIC_API_URL: ${PUBLIC_API_URL}
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - internal
+    ports:
+      - "127.0.0.1:3005:3000"
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  db_data:
