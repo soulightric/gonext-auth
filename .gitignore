@@ -1,0 +1,7 @@
+/fiber-auth/.env
+/nextjs-auth-frontend/app/.next
+/nextjs-auth-frontend/app/node_modules
+/nextjs-auth-frontend/app/.env
+.env
+/node_modules
+/.next
