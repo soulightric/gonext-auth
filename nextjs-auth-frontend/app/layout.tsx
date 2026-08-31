@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Fiber Auth Demo",
+  title: "Fiber Go + Next JS",
   description: "Contoh integrasi Next.js dengan backend Golang Fiber",
 };
 
