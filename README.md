@@ -8,7 +8,7 @@ Ikuti pola kamu yang sudah ada:
 
 ```
 /home/projects/2026/nama-project/
-├── fiber-auth/              # source code backend (copy dari project ini)
+├── fiber-auth-backend/              # source code backend (copy dari project ini)
 ├── nextjs-auth-frontend/    # source code frontend (copy dari project ini)
 ├── docker-compose.yml
 └── .env
