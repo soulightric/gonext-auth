@@ -10,6 +10,9 @@ Ikuti pola kamu yang sudah ada:
 /home/projects/2026/nama-project/
 ├── fiber-auth-backend/              # source code backend (copy dari project ini)
 ├── nextjs-auth-frontend/    # source code frontend (copy dari project ini)
+├── dist/
+├── mirror.arch.etherthink.xyz/
+├── expo-auth-frontend/
 ├── docker-compose.yml
 └── .env
 ```
