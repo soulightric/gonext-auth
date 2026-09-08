@@ -16,6 +16,6 @@ func Setup(app *fiber.App) {
 	auth.Post("/register", handlers.Register)
 	auth.Post("/login", handlers.Login)
 
-	// Route yang dilindungi (butuh token JWT) jwt
+	// Route yang dilindungi (butuh token JWT)
 	auth.Get("/me", middleware.Protected(), handlers.Me)
 }
